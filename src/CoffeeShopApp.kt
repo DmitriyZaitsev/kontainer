@@ -1,8 +1,8 @@
 class CoffeeShop : Injektor {
     override val kontainer = kontainer {
-        provide<Heater> { ElectricHeater() }
-        provide<Pump> { Thermosiphon(get()) }
-        provide { CoffeeMaker(get(), get()) }
+        weak<Heater> { ElectricHeater() }
+        singleton<Pump> { Thermosiphon(resolve()) }
+        provider { CoffeeMaker(resolve(), resolve()) }
     }
 
     private val coffeeMaker: CoffeeMaker by injekt()
